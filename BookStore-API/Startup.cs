@@ -16,6 +16,8 @@ using System.Reflection;
 using System.IO;
 using BookStore_API.Contracts;
 using BookStore_API.Services;
+using AutoMapper;
+using BookStore_API.Mapping;
 
 namespace BookStore_API
 {
@@ -36,6 +38,8 @@ namespace BookStore_API
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAutoMapper(typeof(Maps));
 
             services.AddCors(c =>
             {
