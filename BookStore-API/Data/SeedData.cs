@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore_API.Data
 {
-    public class SeedData
+    public static class SeedData
     {
         public async static Task Seed(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
