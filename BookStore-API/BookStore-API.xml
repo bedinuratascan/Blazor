@@ -102,6 +102,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:BookStore_API.Controllers.UserController.Register(BookStore_API.DTOs.UserDTO)">
+            <summary>
+            User register
+            </summary>
+            <param name="userDTO"></param>
+            <returns></returns>
+        </member>
         <member name="M:BookStore_API.Controllers.UserController.Login(BookStore_API.DTOs.UserDTO)">
             <summary>
             User login
