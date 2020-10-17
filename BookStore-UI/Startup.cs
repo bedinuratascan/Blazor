@@ -9,9 +9,12 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BookStore_UI.Data;
 using BookStore_UI.Contracts;
 using BookStore_UI.Services;
+using Blazored.LocalStorage;
+using System.IdentityModel.Tokens.Jwt;
+using BookStore_UI.Providers;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BookStore_UI
 {
@@ -30,8 +33,12 @@ namespace BookStore_UI
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddBlazoredLocalStorage();
             services.AddHttpClient();
+            services.AddScoped<ApiAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider>(c =>
+                c.GetRequiredService<ApiAuthenticationStateProvider>());
+            services.AddScoped<JwtSecurityTokenHandler>();
             services.AddTransient<IAuthenticationRepository, AuthenticationRespository>();
         }
 
