@@ -27,15 +27,15 @@ else
                     <td>@author.Firstname</td>
                     <td>@author.Lastname</td>
                     <td>
-                        <button class="btn btn-primary">
+                        <a href="/authors/view/@author.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
-                        </button>
-                        <button class="btn btn-warning">
+                        </a>
+                        <a href="/authors/edit/@author.Id" class="btn btn-warning">
                             <span class="oi oi-pencil"></span>
-                        </button>
-                        <button class="btn btn-danger">
+                        </a>
+                        <a class="btn btn-danger">
                             <span class="oi oi-delete"></span>
-                        </button>
+                        </a>
                     </td>
                 </tr>
             }

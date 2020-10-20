@@ -1,0 +1,74 @@
+﻿@page "/authors/edit/{Id}"
+@inject NavigationManager _navMan
+@inject IAuthorRepository _repo
+
+<h2>Edit Author</h2>
+
+@if (isFailed)
+{
+    <div class="alert alert-danger">
+        <p>Something went wrong!</p>
+    </div>
+}
+
+@if (Model == null)
+{
+    <LoadingMessage Message="There is no author for edit." />
+}
+else
+{
+    <EditForm Model="Model" OnValidSubmit="EditAuthor">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <InputText id="firstname" class="form-control" @bind-Value="Model.Firstname" />
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <InputText id="lastname" class="form-control" @bind-Value="Model.Lastname" />
+        </div>
+        <div class="form-group">
+            <label for="bio">Biyography</label>
+            <InputTextArea id="bio" class="form-control" @bind-Value="Model.Bio" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">
+            <span class="oi oi-pencil"></span>Edit Author
+        </button>
+        <button @onclick="BackToList" class="btn btn-outline-secondary">
+            <span class="bi bi-arrow-left"></span>Back to List
+        </button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Author Model = new Author();
+    private bool isFailed = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        int id = Convert.ToInt32(Id);
+        Model = await _repo.Get(Endpoints.AuthorsEndpoint, id);
+    }
+    private async Task EditAuthor()
+    {
+        bool isSuccess = await _repo.Update(Endpoints.AuthorsEndpoint, Model, Model.Id);
+        if (isSuccess)
+        {
+            BackToList();
+
+        }
+        else
+        {
+            isFailed = true;
+        }
+    }
+
+    private void BackToList()
+    {
+        _navMan.NavigateTo("/authors/");
+    }
+}
