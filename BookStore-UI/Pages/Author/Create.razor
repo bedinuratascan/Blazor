@@ -1,9 +1,12 @@
 ﻿@page "/authors/create"
+@attribute [Authorize(Roles = "Administrator")]
 @inject NavigationManager _navMan
 @inject IAuthorRepository _repo
 
-<h2>Create New Author</h2>
-
+<h2 class="card-title">Create New Author</h2>
+<br/>
+<hr/>
+<br/>
 @if (!isSuccess)
 {
     <div class="alert alert-danger">
