@@ -34,8 +34,10 @@ namespace BookStore_UI.Providers
                     await _localStorage.RemoveItemAsync("token");
                     return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
                 }
+
                 var claims = ParseClaims(tokenContent);
                 var user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
+
                 return new AuthenticationState(user);
             }
             catch (Exception)

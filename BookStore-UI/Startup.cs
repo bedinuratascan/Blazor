@@ -40,6 +40,7 @@ namespace BookStore_UI
                 c.GetRequiredService<ApiAuthenticationStateProvider>());
             services.AddScoped<JwtSecurityTokenHandler>();
             services.AddTransient<IAuthenticationRepository, AuthenticationRespository>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +59,8 @@ namespace BookStore_UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+           
+           
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
