@@ -13,7 +13,7 @@ namespace BookStore_API.DTOs
         public string EmailAddress { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        [StringLength(8)]
+        [StringLength(15)]
         public string Password { get; set; }
     }
 }

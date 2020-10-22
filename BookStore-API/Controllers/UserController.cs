@@ -62,7 +62,8 @@ namespace BookStore_API.Controllers
                     }
                     return InternalError($"{location} : {UserName} User registration attempt failed.");
                 }
-                return Ok(new { result.Succeeded });
+                await _userManager.AddToRoleAsync(User, "Customer");
+                return Created("login", new { result.Succeeded });
             }
             catch (Exception e)
             {
@@ -117,7 +118,7 @@ namespace BookStore_API.Controllers
             var roles = await _userManager.GetRolesAsync(user);
             claims.AddRange(roles.Select(r=>new Claim(ClaimsIdentity.DefaultNameClaimType,r)));
 
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Issuer"],claims,null,expires:DateTime.Now.AddMinutes(5),signingCredentials:credentials);
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Issuer"],claims,null,expires:DateTime.Now.AddHours(5),signingCredentials:credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
